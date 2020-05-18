@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+     <!--Import Google Icon Font-->
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <!--Import materialize.css-->
+     <link type="text/css" rel="stylesheet" href="static/css/materialize.min.css"  media="screen,projection"/>
+
+     <!--Let browser know website is optimized for mobile-->
+     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+   </head>
+
+   <body>
+
+     <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="sass.html">Sass</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">JavaScript</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <div class="row">
+      <div class="col s12 m6">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Sample Card</span>
+          <canvas id="myChart" width="150" height="100"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 m6">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">Sample Card</span>
+              <div id="gauge" class="200x160px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+     <!--JavaScript at end of body for optimized loading-->
+     <script type="text/javascript" src="static/js/materialize.min.js"></script>
+
+     <script type="text/javascript" src="static/js/justgage.js"></script>
+     <script type="text/javascript" src="static/js/raphael-2.1.4.min.js"></script>
+
+     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js'></script>
+     <script>
+     Chart.defaults.global.defaultFontColor = "#fff";
+     var ctx = document.getElementById('myChart').getContext('2d');
+ var myChart = new Chart(ctx, {
+   type: 'line',
+   data: {
+     labels: [
+          {% for item in labels %}
+           "{{ item }}",
+          {% endfor %}
+	],
+     datasets: [{
+       label: 'CPU LoadAVG',
+       data: {{ data }},
+       backgroundColor: "rgba(153,255,51,0.4)"
+     }]
+   }
+
+
+ });
+
+
+ var g = new JustGage({
+   id: "gauge",
+   min: 0,
+   max: 100,
+   title: "{{gauge['gage_title']}}",
+   value: {{gauge["value"]}}
+ });
+     </script>
+
+
+
+   </body>
+ </html>
